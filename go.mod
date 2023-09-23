@@ -1,4 +1,4 @@
-module ikemen-engine/beep
+module github.com/ikemen-engine/beep
 
 go 1.14
 
