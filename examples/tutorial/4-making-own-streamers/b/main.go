@@ -5,9 +5,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/samhocevar/beep"
-	"github.com/samhocevar/beep/mp3"
-	"github.com/samhocevar/beep/speaker"
+	"github.com/ikemen-engine/beep"
+	"github.com/ikemen-engine/beep/mp3"
+	"github.com/ikemen-engine/beep/speaker"
 )
 
 type Queue struct {

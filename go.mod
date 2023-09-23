@@ -1,4 +1,4 @@
-module github.com/samhocevar/beep
+module ikemen-engine/beep
 
 go 1.14
 

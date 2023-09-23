@@ -6,11 +6,11 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/samhocevar/beep"
-	"github.com/samhocevar/beep/effects"
-	"github.com/samhocevar/beep/mp3"
-	"github.com/samhocevar/beep/speaker"
 	"github.com/gdamore/tcell"
+	"github.com/ikemen-engine/beep"
+	"github.com/ikemen-engine/beep/effects"
+	"github.com/ikemen-engine/beep/mp3"
+	"github.com/ikemen-engine/beep/speaker"
 )
 
 func drawTextLine(screen tcell.Screen, x, y int, s string, style tcell.Style) {

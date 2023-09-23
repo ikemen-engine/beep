@@ -4,7 +4,7 @@ import (
 	"errors"
 	"math"
 
-	"github.com/samhocevar/beep"
+	"github.com/ikemen-engine/beep"
 )
 
 type triangleGenerator struct {

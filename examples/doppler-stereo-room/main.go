@@ -7,11 +7,11 @@ import (
 	"time"
 	"unicode"
 
-	"github.com/samhocevar/beep"
-	"github.com/samhocevar/beep/effects"
-	"github.com/samhocevar/beep/mp3"
-	"github.com/samhocevar/beep/speaker"
 	"github.com/gdamore/tcell"
+	"github.com/ikemen-engine/beep"
+	"github.com/ikemen-engine/beep/effects"
+	"github.com/ikemen-engine/beep/mp3"
+	"github.com/ikemen-engine/beep/speaker"
 )
 
 func multiplyChannels(left, right float64, s beep.Streamer) beep.Streamer {
@@ -128,16 +128,16 @@ var directions = map[rune]EventMappedLocation{
 	'2': {-1, 1, 1, 1, SetPoint},
 	// Left, Right
 	'4': {-1.5, 0, -1, 0, SetPoint},
-	'6': { 1,0,  1.5,0, SetPoint},
+	'6': {1, 0, 1.5, 0, SetPoint},
 	// Layout Top Left, Top Right, Bottom Right, Bottom Left
-	'7': {-1.8, -1.8,-0.8, -1.8, SetPoint},
-	'9': {0.8, -1.8,1.8, -1.8,  SetPoint},
+	'7': {-1.8, -1.8, -0.8, -1.8, SetPoint},
+	'9': {0.8, -1.8, 1.8, -1.8, SetPoint},
 	'1': {-1.8, 1.8, -0.8, 1.8, SetPoint},
 	'3': {0.8, 1.8, 1.8, 1.8, SetPoint},
 
 	// Diagonal Locations
 	'\\': {-1, -1, 1, 1, SetPoint},
-	'/': {-1, 1, 1, -1, SetPoint},
+	'/':  {-1, 1, 1, -1, SetPoint},
 
 	// Left
 	'a': {-1, 0, 0, 0, Applied},

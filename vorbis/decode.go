@@ -4,13 +4,13 @@ package vorbis
 import (
 	"io"
 
-	"github.com/samhocevar/beep"
+	"github.com/ikemen-engine/beep"
 	"github.com/jfreymuth/oggvorbis"
 	"github.com/pkg/errors"
 )
 
 const (
-	govorbisPrecision   = 2
+	govorbisPrecision = 2
 )
 
 // Decode takes a ReadCloser containing audio data in ogg/vorbis format and returns a StreamSeekCloser,
@@ -52,7 +52,7 @@ func (d *decoder) Stream(samples [][2]float64) (n int, ok bool) {
 	for i := range samples {
 		dn, err := d.d.Read(d.buf[:])
 		if dn == d.f.NumChannels {
-			samples[i][0], samples[i][1] = float64(d.buf[0]), float64(d.buf[len(d.buf) - 1])
+			samples[i][0], samples[i][1] = float64(d.buf[0]), float64(d.buf[len(d.buf)-1])
 			n++
 			ok = true
 		}

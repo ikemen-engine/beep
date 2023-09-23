@@ -4,8 +4,8 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/samhocevar/beep"
-	"github.com/samhocevar/beep/speaker"
+	"github.com/ikemen-engine/beep"
+	"github.com/ikemen-engine/beep/speaker"
 )
 
 func Noise() beep.Streamer {

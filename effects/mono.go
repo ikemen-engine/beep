@@ -1,6 +1,6 @@
 package effects
 
-import "github.com/samhocevar/beep"
+import "github.com/ikemen-engine/beep"
 
 // Mono converts the wrapped Streamer to a mono buffer
 // by downmixing the left and right channels together.

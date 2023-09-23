@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/samhocevar/beep"
+	"github.com/ikemen-engine/beep"
 )
 
 func TestResample(t *testing.T) {
