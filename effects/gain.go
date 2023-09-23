@@ -1,6 +1,6 @@
 package effects
 
-import "github.com/samhocevar/beep"
+import "github.com/ikemen-engine/beep"
 
 // Gain amplifies the wrapped Streamer. The output of the wrapped Streamer gets multiplied by
 // 1+Gain.

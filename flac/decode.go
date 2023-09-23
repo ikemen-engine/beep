@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/samhocevar/beep"
+	"github.com/ikemen-engine/beep"
 	"github.com/mewkiz/flac"
 	"github.com/pkg/errors"
 )

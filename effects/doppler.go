@@ -1,6 +1,6 @@
 package effects
 
-import "github.com/samhocevar/beep"
+import "github.com/ikemen-engine/beep"
 
 // Doppler simulates a "sound at a distance". If the sound starts at a far distance,
 // it'll take some time to reach the ears of the listener.

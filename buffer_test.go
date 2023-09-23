@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/samhocevar/beep"
+	"github.com/ikemen-engine/beep"
 )
 
 func TestFormatEncodeDecode(t *testing.T) {

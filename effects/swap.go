@@ -1,6 +1,6 @@
 package effects
 
-import "github.com/samhocevar/beep"
+import "github.com/ikemen-engine/beep"
 
 // Swap swaps the left and right channel of the wrapped Streamer.
 //

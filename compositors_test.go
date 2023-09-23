@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/samhocevar/beep"
+	"github.com/ikemen-engine/beep"
 )
 
 // randomDataStreamer generates random samples of duration d and returns a StreamSeeker which streams

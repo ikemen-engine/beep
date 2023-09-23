@@ -3,7 +3,7 @@ package effects
 import (
 	"math"
 
-	"github.com/samhocevar/beep"
+	"github.com/ikemen-engine/beep"
 )
 
 // Volume adjusts the volume of the wrapped Streamer in a human-natural way. Human's perception of

@@ -4,8 +4,8 @@ package speaker
 import (
 	"sync"
 
-	"github.com/samhocevar/beep"
 	"github.com/hajimehoshi/oto"
+	"github.com/ikemen-engine/beep"
 	"github.com/pkg/errors"
 )
 

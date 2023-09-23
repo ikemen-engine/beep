@@ -6,15 +6,15 @@ import (
 	"io"
 	"time"
 
-	"github.com/samhocevar/beep"
-	"github.com/samhocevar/go-meltysynth/meltysynth"
+	"github.com/ikemen-engine/beep"
 	"github.com/pkg/errors"
+	"github.com/samhocevar/go-meltysynth/meltysynth"
 )
 
 const (
-	midiSampleRate    = 44100
-	midiNumChannels   = 2
-	midiPrecision     = 4
+	midiSampleRate  = 44100
+	midiNumChannels = 2
+	midiPrecision   = 4
 )
 
 // Read a sound font containing instruments. A sound font is required in order to play MIDI files.
@@ -51,7 +51,7 @@ func Decode(rc io.ReadCloser, sf *SoundFont) (s beep.StreamSeekCloser, format be
 		return nil, beep.Format{}, err
 	}
 	seq := meltysynth.NewMidiFileSequencer(synth)
-	seq.Play(mf, /*loop*/ false)
+	seq.Play(mf /*loop*/, false)
 	format = beep.Format{
 		SampleRate:  beep.SampleRate(midiSampleRate),
 		NumChannels: midiNumChannels,

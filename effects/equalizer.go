@@ -3,7 +3,7 @@ package effects
 import (
 	"math"
 
-	"github.com/samhocevar/beep"
+	"github.com/ikemen-engine/beep"
 )
 
 type (
