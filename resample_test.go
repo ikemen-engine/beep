@@ -2,7 +2,7 @@ package beep_test
 
 import (
 	"fmt"
-	"reflect"
+	"math"
 	"testing"
 
 	"github.com/gopxl/beep/v2"
@@ -24,8 +24,21 @@ func TestResample(t *testing.T) {
 
 					got := testtools.Collect(beep.Resample(3, old, new, s))
 
-					if !reflect.DeepEqual(want, got) {
-						t.Fatal("Resample not working correctly")
+					//if !reflect.DeepEqual(want, got) {
+					//	t.Fatal("Resample not working correctly")
+
+					// The reference impl and the resampler do the same math in a different order
+					// So they agree to 1-2 ulp rather than bit-for-bit
+					const eps = 1e-12
+					if len(want) != len(got) {
+						t.Fatalf("length mismatch: want %d, got %d", len(want), len(got))
+					}
+					for i := range want {
+						for c := range want[i] {
+							if d := math.Abs(want[i][c] - got[i][c]); d > eps {
+								t.Fatalf("sample %d ch %d: want %v, got %v (diff %v)", i, c, want[i][c], got[i][c], d)
+							}
+						}
 					}
 				})
 			}
