@@ -58,6 +58,7 @@ func ResampleRatio(quality int, ratio float64, s Streamer) *Resampler {
 		buf1:  make([][2]float64, resamplerSingleBufferSize),
 		buf2:  make([][2]float64, resamplerSingleBufferSize),
 		pts:   make([]point, quality*2),
+		weights: lagrangeWeights(quality * 2),
 		// The initial value of `off` is set so that the current position is just behind the end
 		// of buf2:
 		//   current position (0) - len(buf2) = -resamplerSingleBufferSize
@@ -80,6 +81,7 @@ type Resampler struct {
 	ratio      float64      // old sample rate / new sample rate
 	buf1, buf2 [][2]float64 // buf1 contains previous buf2, new data goes into buf2, buf1 is because interpolation might require old samples
 	pts        []point      // pts is for points used for interpolation
+	weights    [][]float64  // weights[n] holds barycentric weights for n points
 	off        int          // off is the position of the start of buf2 in the original data
 	pos        float64      // pos is the current position in the resampled data
 	end        int          // end is the position after the last sample in the original data
@@ -142,7 +144,7 @@ func (r *Resampler) Stream(samples [][2]float64) (n int, ok bool) {
 
 			// Calculate the resampled sample using polynomial interpolation from the
 			// quality*2 closest samples.
-			samples[0][c] = lagrange(pts, wantPos)
+			samples[0][c] = lagrange(pts, wantPos, r.weights[numPts])
 		}
 
 		samples = samples[1:]
@@ -172,21 +174,47 @@ func (r *Resampler) SetRatio(ratio float64) {
 	r.ratio = ratio
 }
 
-// lagrange calculates the value at x of a polynomial of order len(pts)+1 which goes through all
-// points in pts
-func lagrange(pts []point, x float64) (y float64) {
-	y = 0.0
-	for j := range pts {
-		l := 1.0
-		for m := range pts {
-			if j == m {
-				continue
-			}
-			l *= (x - pts[m].X) / (pts[j].X - pts[m].X)
+// lagrangeWeights precomputes barycentric weights for every window size up to maxN.
+// w[n][j] = (-1)^j * C(n-1, j), valid for nodes at consecutive integers.
+func lagrangeWeights(maxN int) [][]float64 {
+	all := make([][]float64, maxN+1)
+	for n := 1; n <= maxN; n++ {
+		w := make([]float64, n)
+		w[0] = 1.0
+		weight := 1.0
+		for j := 1; j < n; j++ {
+			weight *= float64(n-j) / float64(j)
+			weight = -weight
+			w[j] = weight
 		}
-		y += pts[j].Y * l
+		all[n] = w
 	}
-	return y
+	return all
+}
+
+// lagrange calculates the value at x of a polynomial of order len(pts)+1 which goes through all points in pts
+// Uses the second barycentric form: O(n) per call instead of O(n^2)
+// w must be the weights for len(pts) nodes, and pts[i].X must be consecutive integers
+func lagrange(pts []point, x float64, w []float64) (y float64) {
+	n := len(pts)
+	if n == 1 {
+		return pts[0].Y // window clips to a single point at stream edges
+	}
+
+	t := x - pts[0].X
+
+	// Exact hit on a node; the barycentric form would divide by zero.
+	if i := int(t); t == float64(i) && i >= 0 && i < n {
+		return pts[i].Y
+	}
+
+	var num, den float64
+	for j := 0; j < n; j++ {
+		v := w[j] / (t - float64(j))
+		num += v * pts[j].Y
+		den += v
+	}
+	return num / den
 }
 
 type point struct {
